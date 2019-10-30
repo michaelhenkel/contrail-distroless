@@ -111,6 +111,7 @@ dpkg_list(
         "libc-bin=2.24-11+deb9u4",
 	"python-bitarray",
 	"python-pkg-resources",
+	"python-setuptools",
 
         #python3
         "libmpdec2",
@@ -310,6 +311,7 @@ dpkg_list(
         "python2.7-minimal",
 	"python-bitarray",
 	"python-pkg-resources",
+	"python-setuptools",
 
         #python3
         "libmpdec2",

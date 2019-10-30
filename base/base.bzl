@@ -70,7 +70,7 @@ def distro_components(distro_suffix):
         directory = "/",
         entrypoint = ["/busybox/sh"],
         env = {"PATH": "$$PATH:/busybox"},
-        tars = ["//experimental/busybox:busybox.tar"],
+        tars = ["//busybox:busybox.tar"],
     )
 
     # Non-root base images

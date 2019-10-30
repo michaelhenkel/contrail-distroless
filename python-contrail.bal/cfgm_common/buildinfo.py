@@ -1,0 +1,1 @@
+build_info = "{\"build-info\" : [{\"build-version\" : \"1908\", \"build-time\" : \"2019-08-21 04:49:57.103765\", \"build-user\" : \"zuul\", \"build-hostname\" : \"centos-7-4-builder-juniper-contrail-ci-0000280660\", ";

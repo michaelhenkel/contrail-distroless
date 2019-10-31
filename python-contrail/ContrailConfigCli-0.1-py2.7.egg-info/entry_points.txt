@@ -1,6 +1,0 @@
-[console_scripts]
-contrail-svc-monitor-cli = ContrailConfigCli.main:contrail_config_cli
-contrail-schema-cli = ContrailConfigCli.main:contrail_config_cli
-contrail-device-manager-cli = ContrailConfigCli.main:contrail_config_cli
-contrail-api-cli = ContrailConfigCli.main:contrail_config_cli
-

@@ -1,0 +1,9 @@
+[vnc_cfg_api.neutronApi]
+xxx = vnc_openstack:NeutronApiDriver
+
+[vnc_cfg_api.resourceApi]
+xxx = vnc_openstack:ResourceApiDriver
+
+[vnc_cfg_api.resync]
+xxx = vnc_openstack:OpenstackDriver
+

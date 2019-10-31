@@ -1,0 +1,12 @@
+contrail-config-common
+contrail-api-client
+sandesh
+sandesh-common
+gevent
+netaddr
+python-keystoneclient
+netifaces
+bottle
+stevedore
+kazoo>=2.5.0
+pycrypto

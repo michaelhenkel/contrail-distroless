@@ -1,6 +1,21 @@
 load("@io_bazel_rules_docker//python:image.bzl", "py_image")
 load("@io_bazel_rules_docker//container:container.bzl", "container_image")
 load("@contrail_config_api_deps//:requirements.bzl", "requirement")
+load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
+
+filegroup(
+    name = "python-contrail-libs",
+    srcs = [
+	"python-contrail"
+    ],
+)
+pkg_tar(
+    name = "contrail-libs",
+    strip_prefix = "python-contrail",
+    package_dir = "/usr/lib/python2.7/dist-packages",
+    srcs = [":python-contrail-libs"],
+    mode = "0644",
+)
 
 py_image(
     name = "config_api",
@@ -76,6 +91,7 @@ container_image(
 container_image(
     name = "configapi_debug",
     base = ":config_api_debug",
+    tars = [":contrail-libs"],
 )
 
 load("@io_bazel_rules_docker//container:container.bzl", "container_push")

@@ -1,0 +1,21 @@
+Metadata-Version: 1.1
+Name: contrail-config-common
+Version: 0.1dev
+Summary: Contrail VNC Configuration Common Utils
+Home-page: UNKNOWN
+Author: OpenContrail
+Author-email: UNKNOWN
+License: Apache-2
+Description: Contrail VNC Configuration Common Utils
+Keywords: contrail vnc utils
+Platform: UNKNOWN
+Classifier: Environment :: OpenContrail
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7

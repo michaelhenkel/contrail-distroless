@@ -112,6 +112,7 @@ dpkg_list(
 	"python-bitarray",
 	"python-pkg-resources",
 	"python-setuptools",
+	"python-crypto",
 
         #python3
         "libmpdec2",
@@ -312,6 +313,7 @@ dpkg_list(
 	"python-bitarray",
 	"python-pkg-resources",
 	"python-setuptools",
+	"python-crypto",
 
         #python3
         "libmpdec2",

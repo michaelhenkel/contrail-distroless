@@ -43,8 +43,9 @@ DISTRO_DEBS = {
         DISTRO_PACKAGES[distro_suffix]["libpython2.7-minimal"],
         DISTRO_PACKAGES[distro_suffix]["libpython2.7-stdlib"],
         DISTRO_PACKAGES[distro_suffix]["python-bitarray"],
-        DISTRO_PACKAGES[distro_suffix]["python-pkg-resources"],
-        DISTRO_PACKAGES[distro_suffix]["python-setuptools"],
+        #DISTRO_PACKAGES[distro_suffix]["python-pkg-resources"],
+        #DISTRO_PACKAGES[distro_suffix]["python-setuptools"],
+        DISTRO_PACKAGES[distro_suffix]["python-crypto"],
     ] + [DISTRO_PACKAGES[distro_suffix][deb] for deb in DISTRO_DEBS[distro_suffix]],
     entrypoint = [
         "/usr/bin/python2.7",

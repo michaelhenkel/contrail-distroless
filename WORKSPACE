@@ -2,6 +2,7 @@ workspace(name = "distroless")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "new_git_repository")
 
 http_archive(
     name = "io_bazel_rules_go",
@@ -350,3 +351,195 @@ pip_import(
 
 load("@contrail_config_api_deps//:requirements.bzl", "pip_install")
 pip_install()
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "rules_m4",
+    urls = ["https://github.com/jmillikin/rules_m4/releases/download/v0.2/rules_m4-v0.2.tar.xz"],
+    sha256 = "c67fa9891bb19e9e6c1050003ba648d35383b8cb3c9572f397ad24040fb7f0eb",
+)
+load("@rules_m4//m4:m4.bzl", "m4_register_toolchains")
+m4_register_toolchains()
+
+http_archive(
+    name = "rules_bison",
+    urls = ["https://github.com/jmillikin/rules_bison/releases/download/v0.2/rules_bison-v0.2.tar.xz"],
+    sha256 = "6ee9b396f450ca9753c3283944f9a6015b61227f8386893fb59d593455141481",
+)
+load("@rules_bison//bison:bison.bzl", "bison_register_toolchains")
+bison_register_toolchains()
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "rules_m4",
+    urls = ["https://github.com/jmillikin/rules_m4/releases/download/v0.2/rules_m4-v0.2.tar.xz"],
+    sha256 = "c67fa9891bb19e9e6c1050003ba648d35383b8cb3c9572f397ad24040fb7f0eb",
+)
+load("@rules_m4//m4:m4.bzl", "m4_register_toolchains")
+m4_register_toolchains()
+
+http_archive(
+    name = "rules_flex",
+    urls = ["https://github.com/jmillikin/rules_flex/releases/download/v0.2/rules_flex-v0.2.tar.xz"],
+    sha256 = "f1685512937c2e33a7ebc4d5c6cf38ed282c2ce3b7a9c7c0b542db7e5db59d52",
+)
+load("@rules_flex//flex:flex.bzl", "flex_register_toolchains")
+flex_register_toolchains()
+
+CONTRAIL_BUILD = """
+py_library(
+    name = "cfgm_common",
+    srcs = glob([ "src/config/common/cfgm_common/**/*.py" ]),
+    imports = [ 
+                "src/config/common",
+	      ],
+    visibility = [ "//visibility:public" ],
+)
+py_library(
+    name = "vnc_cfg_api_server",
+    srcs = glob([ "src/config/api-server/vnc_cfg_api_server/**/*.py" ]),
+    imports = [ 
+                "src/config/api-server"
+	      ],
+    visibility = [ "//visibility:public" ],
+)
+exports_files(["src/config/api-server/vnc_cfg_api_server/vnc_cfg_api_server.py"])
+"""
+
+CONTRAIL_API_BUILD = """
+py_library(
+    name = "vnc_api",
+    srcs = glob([ "api-lib/vnc_api/**/*.py" ]),
+    imports = [ "api-lib" ],
+    visibility = [ "//visibility:public" ],
+)
+"""
+
+SANDESH_BUILD = """
+cc_library(
+    name = "main_o",
+    srcs = [
+           "compiler/main.cc",
+    ],
+    hdrs = [
+             "compiler/main.h",
+             "compiler/version.h",
+             "compiler/globals.h",
+             "compiler/parse/t_const.h",
+             "compiler/parse/t_type.h",
+             "compiler/parse/t_doc.h",
+             "compiler/parse/t_const_value.h",
+             "compiler/parse/t_enum.h",
+             "compiler/parse/t_enum_value.h",
+             "compiler/parse/t_field.h",
+             "compiler/parse/t_program.h",
+             "compiler/parse/t_scope.h",
+             "compiler/parse/t_service.h",
+             "compiler/parse/t_function.h",
+             "compiler/parse/t_struct.h",
+             "compiler/parse/t_base_type.h",
+             "compiler/parse/t_map.h",
+             "compiler/parse/t_container.h",
+             "compiler/parse/t_list.h",
+             "compiler/parse/t_sandesh.h",
+             "compiler/parse/t_typedef.h",
+             "compiler/parse/t_set.h",
+             "compiler/generate/t_generator_registry.h",
+             "compiler/generate/t_generator.h",
+    ],
+    copts = ["-Iexternal/sandesh_repository/compiler","-c","-O0","-DDEBUG","-g","-DSANDESH"],
+    visibility = [ "//visibility:public" ],
+)
+filegroup(
+    name = "sandesh_headers",
+    srcs = glob([ "compiler/**/*.h" ]),
+    visibility = [ "//visibility:public" ],
+)
+filegroup(
+    name = "main_cc",
+    srcs = [ "compiler/main.cc" ],
+    visibility = [ "//visibility:public" ],
+)
+filegroup(
+    name = "md5_c",
+    srcs = ["compiler/md5.c"],
+    visibility = [ "//visibility:public" ],
+)
+filegroup(
+    name = "sandeshy_yy",
+    srcs = ["compiler/sandeshy.yy"],
+    visibility = [ "//visibility:public" ],
+)
+filegroup(
+    name = "sandeshl_ll",
+    srcs = ["compiler/sandeshl.ll"],
+    visibility = [ "//visibility:public" ],
+)
+filegroup(
+    name = "t_cpp_generator_cc",
+    srcs = ["compiler/generate/t_cpp_generator.cc"],
+    visibility = [ "//visibility:public" ],
+)
+filegroup(
+    name = "t_html_generator_cc",
+    srcs = ["compiler/generate/t_html_generator.cc"],
+    visibility = [ "//visibility:public" ],
+)
+filegroup(
+    name = "t_generator_cc",
+    srcs = ["compiler/generate/t_generator.cc"],
+    visibility = [ "//visibility:public" ],
+)
+filegroup(
+    name = "t_xsd_generator_cc",
+    srcs = ["compiler/generate/t_xsd_generator.cc"],
+    visibility = [ "//visibility:public" ],
+)
+filegroup(
+    name = "t_c_generator_cc",
+    srcs = ["compiler/generate/t_c_generator.cc"],
+    visibility = [ "//visibility:public" ],
+)
+filegroup(
+    name = "t_py_generator_cc",
+    srcs = ["compiler/generate/t_py_generator.cc"],
+    visibility = [ "//visibility:public" ],
+)
+filegroup(
+    name = "t_doc_generator_cc",
+    srcs = ["compiler/generate/t_doc_generator.cc"],
+    visibility = [ "//visibility:public" ],
+)
+filegroup(
+    name = "parse_cc",
+    srcs = ["compiler/parse/parse.cc"],
+    visibility = [ "//visibility:public" ],
+)
+
+"""
+
+new_git_repository(
+    name = "sandesh_repository",
+    remote = "https://github.com/Juniper/contrail-sandesh.git",
+    branch = "master",
+    build_file_content = SANDESH_BUILD
+)
+new_git_repository(
+    name = "contrail_repository",
+    remote = "https://github.com/Juniper/contrail-controller.git",
+    branch = "master",
+    build_file_content = CONTRAIL_BUILD
+)
+new_git_repository(
+    name = "contrail_api_repository",
+    remote = "https://github.com/Juniper/contrail-api-client.git",
+    branch = "master",
+    patch_cmds = [
+		    "mkdir api-lib/vnc_api/{gen,doc}",
+		    "cp generateds/{generatedssuper.py,cfixture.py} api-lib/vnc_api/gen",
+		    "HEAT_BUILDTOP=\"$(pwd)\" generateds/generateDS.py -f -o api-lib/vnc_api/gen/resource -g ifmap-frontend schema/all_cfg.xsd"
+		 ],
+    build_file_content = CONTRAIL_API_BUILD
+)

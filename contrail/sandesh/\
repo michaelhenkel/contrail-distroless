@@ -1,0 +1,23 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_test")
+
+repo_fg = "@sandesh_repository//:sandesh_source"
+
+cc_library(
+    name = "md5.o",
+    srcs = [
+	   "@sandesh_repository//:sandesh_md5",
+    ],
+)
+cc_library(
+    name = "main.o",
+    srcs = [
+           "@sandesh_repository//:sandesh_main",
+    ],
+    deps = ["md5.o"],
+)
+cc_library(
+    name = "main.x",
+    srcs = [
+	    "$(location //repo_fg:main.c)"
+    ],
+)

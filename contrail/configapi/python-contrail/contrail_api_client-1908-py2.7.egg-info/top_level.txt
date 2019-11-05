@@ -1,2 +1,0 @@
-vnc_api
-doc

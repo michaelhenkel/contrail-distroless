@@ -13,7 +13,7 @@ debtcollector==1.22.0
 enum34==1.1.6
 funcsigs==1.0.2
 fysom
-gevent
+gevent==1.2.2
 greenlet
 importlib_metadata
 idna==2.8

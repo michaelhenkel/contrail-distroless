@@ -178,12 +178,29 @@ genrule(
 )
 #./build/bin/sandesh --gen py:new_style -I controller/src/ -I src/contrail-common -out /tmp controller/src/config/uve/acl.sandesh
 
+
+py_library(
+    name = "vnc_cfg_api_server",
+    srcs = ["@contrail_repository//:vnc_cfg_api_server"],
+)
+
+py_library(
+    name = "sandesh_libs",
+    srcs = [":sandesh_acl"],
+)
+
+py_library(
+    name = "cfgm_common",
+    srcs = ["@contrail_repository//:cfgm_common",":sandesh_libs"],
+    #imports = [":sandesh_libs"],
+)
+
 DEPS = [
 	"@contrail_repository//:cfgm_common",
 	"@contrail_repository//:vnc_cfg_api_server",
 	"@contrail_api_repository//:vnc_api",
 	"@contrail_common_repository//:contrail_common",
-	"@contrail_common_repository//:pysandesh",
+	"@sandesh_repository//:pysandesh",
         requirement("amqp"),
         requirement("attrdict"),
         requirement("Babel"),
@@ -240,6 +257,8 @@ py_image(
     name = "config_api_debug",
     srcs = ["@contrail_repository//:src/config/api-server/vnc_cfg_api_server/api_server.py"],
     base = "//python2.7:debug",
+    imports = ["sandesh"],
+    #imports = [":sandesh_libs"],
     deps = DEPS,
     main = "api_server.py",
 )
@@ -252,6 +271,7 @@ container_image(
 container_image(
     name = "configapi_debug",
     base = ":config_api_debug",
+    #tars = [":contrail-libs-2"],
 )
 
 load("@io_bazel_rules_docker//container:container.bzl", "container_push")

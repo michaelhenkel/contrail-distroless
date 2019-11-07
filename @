@@ -908,11 +908,9 @@ genrule(
   srcs = [],
   outs = ["src/config/common/cfgm_common/buildinfo.py"],
   cmd = \"\"\"
-  echo build_info = '"'{"\ "'"'build-info"\ "'"' : [{"\ "'"'build-version"\ "'"' : "\ "'"'bla"\ "'"', "\ "'"'build-time"\ "'"' : "\ "'"'blabla"\ "'"', "\ "'"'build-user"\ "'"' : "\ "'"'blabla"\ "'"', "\ "'"'build-hostname"\ "'"' : "\ "'"'blabla"\ "'"', '"' \";\" |sed 's/ //g' > $@
-  cat $@
 #echo "build_info = \\\"{\\"build-info\\" : [{\\"build-version\\" : \\"1911\\", \\"build-time\\" : \\"2019-11-07 00:32:24.968612\\", \\"build-user\\" : \\"root\\", \\"build-hostname\\" : \\"15af5590982a\\", \\";" > $@
 #echo " \" \\" \\\" \\\\" " > $@
-#echo "\ "'"' |sed 's/ //g'
+echo "\ " '"'
 \"\"\",
 )
 py_library(

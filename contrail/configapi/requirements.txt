@@ -1,5 +1,5 @@
 #pycrypto
-Babel==2.7.0
+Babel==2.9.1
 PyYAML==5.1.2
 amqp
 attrdict
